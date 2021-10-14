@@ -21,13 +21,9 @@ class RecipesNotifier extends StateNotifier<RecipesState> {
   final RecipesRepository _recipesRepository;
 
   RecipesNotifier(this._recipesRepository)
-      : super(const RecipesState.loading()) {
-    getRecipes();
-  }
+      : super(const RecipesState.loading());
 
   Future<void> getRecipes() async {
-    state = const RecipesState.loading();
-
     final failureOrRecipes = await _recipesRepository.getRecipes();
     state = failureOrRecipes.fold(
       (l) => l.map(
